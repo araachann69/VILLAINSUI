@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key System & Config — VILLAINS UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+    <nav class="navbar">
+        <div class="nav-brand"><span class="brand-icon">☠</span><span class="brand-text">VILLAINS<span class="accent">UI</span></span></div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="installation.html">Installation</a>
+            <a href="window.html">Window</a>
+            <a href="elements.html">Elements</a>
+            <a href="keysystem.html" class="active">Key System</a>
+            <a href="api.html">API</a>
+        </div>
+    </nav>
+    <div class="page-content">
+        <h1>Key System & Config</h1>
+        <p class="subtitle">Full WindUI-parity features in v2.0.0</p>
+
+        <h2>Key System</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>local Window = VillainsUI:CreateWindow({
+    Title = "My Hub",
+    Folder = "MyHub",
+    KeySystem = {
+        Key = { "KEY-1", "KEY-2" },
+        SaveKey = true,
+        Note = "Get key from our Discord!",
+        URL = "https://your-key-link.com",
+        KeyValidator = function(key)
+            return key == "custom-valid-key"
+        end,
+        API = {
+            { Type = "luarmor", ScriptId = "id", Discord = "https://discord.gg/..." },
+            { Type = "platoboost", ServiceId = 1234, Secret = "secret" },
+            { Type = "pandadevelopment", ServiceId = "hub-name" },
+        },
+    },
+})</code></pre>
+        </div>
+
+        <h2>Config Save / Load</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Toggle({ Title = "Auto Farm", Flag = "AutoFarm", Default = false })
+Tab:Slider({ Title = "Speed", Flag = "Speed", Min = 16, Max = 200, Default = 16 })
+
+Tab:Button({
+    Title = "Save",
+    Callback = function() Window:SaveConfig("default") end,
+})
+
+Tab:Button({
+    Title = "Load",
+    Callback = function() Window:LoadConfig("default") end,
+})</code></pre>
+        </div>
+
+        <h2>Localization</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>VillainsUI:Localization({
+    Enabled = true,
+    Prefix = "loc:",
+    DefaultLanguage = "en",
+    Translations = {
+        ["en"] = { ["WELCOME"] = "Welcome!" },
+        ["id"] = { ["WELCOME"] = "Selamat datang!" },
+    },
+})
+
+VillainsUI:SetLanguage("id")
+Window:Tab({ Title = "loc:WELCOME" })</code></pre>
+        </div>
+
+        <h2>Supported Key Services</h2>
+        <table class="param-table">
+            <tr><th>Type</th><th>Args</th></tr>
+            <tr><td><code>luarmor</code></td><td>ScriptId, Discord</td></tr>
+            <tr><td><code>platoboost</code></td><td>ServiceId, Secret</td></tr>
+            <tr><td><code>junkie</code> / <code>junkiedevelopment</code></td><td>ServiceId, ApiKey</td></tr>
+    </div>
+    <footer class="footer"><p>VILLAINS UI Library v2.0.0</p></footer>
+    <script src="../assets/script.js"></script>
+</body>
+</html>

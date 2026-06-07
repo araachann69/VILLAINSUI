@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elements — VILLAINS UI Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">☠</span>
+            <span class="brand-text">VILLAINS<span class="accent">UI</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="installation.html">Installation</a>
+            <a href="window.html">Window</a>
+            <a href="elements.html" class="active">Elements</a>
+            <a href="keysystem.html">Key System</a>
+            <a href="api.html">API</a>
+        </div>
+        <a href="https://github.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY" class="btn-github" target="_blank">GitHub</a>
+    </nav>
+
+    <div class="page-content">
+        <h1>Elements</h1>
+        <p class="subtitle">All UI elements available on tabs.</p>
+
+        <h2>Button</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Button({
+    Title = "Execute",
+    Icon = "🔥",
+    Color = Color3.fromHex("#DC143C"),
+    Justify = "Center",
+    Callback = function()
+        print("Clicked!")
+    end,
+})</code></pre>
+        </div>
+
+        <h2>Toggle</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Toggle({
+    Title = "Enable Feature",
+    Default = false,
+    Callback = function(value)
+        print("Toggle:", value)
+    end,
+})
+
+-- Set value programmatically
+toggle:SetValue(true)</code></pre>
+        </div>
+
+        <h2>Slider</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Slider({
+    Title = "Walk Speed",
+    Min = 16,
+    Max = 200,
+    Default = 16,
+    Decimals = 0,
+    Callback = function(value)
+        print("Speed:", value)
+    end,
+})</code></pre>
+        </div>
+
+        <h2>Input</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Input({
+    Title = "Username",
+    Placeholder = "Enter username...",
+    Default = "",
+    Callback = function(text)
+        print("Input:", text)
+    end,
+    FinishedCallback = function(text)
+        print("Finished:", text)
+    end,
+})</code></pre>
+        </div>
+
+        <h2>Dropdown</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Dropdown({
+    Title = "Select Mode",
+    Options = { "Mode 1", "Mode 2", "Mode 3" },
+    Default = "Mode 1",
+    Callback = function(selected)
+        print("Selected:", selected)
+    end,
+})</code></pre>
+        </div>
+
+        <h2>Keybind</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Keybind({
+    Title = "Toggle UI",
+    Default = Enum.KeyCode.RightControl,
+    Callback = function(key)
+        print("Key:", key.Name)
+    end,
+})</code></pre>
+        </div>
+
+        <h2>Paragraph</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Paragraph({
+    Title = "Information",
+    Content = "This is a description text block.",
+    TextSize = 14,
+    TextTransparency = 0.1,
+})</code></pre>
+        </div>
+
+        <h2>Section, Divider, Space</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Section({ Title = "Combat Settings" })
+Tab:Toggle({ Title = "Auto Attack", Default = false })
+Tab:Divider()
+Tab:Space({ Columns = 2 })</code></pre>
+        </div>
+
+        <h2>Colorpicker, Code, Image, Group, HStack, VStack</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Lua</span><button class="copy-btn">Copy</button></div>
+            <pre><code>Tab:Colorpicker({ Title = "Accent", Flag = "Accent", Default = Color3.fromHex("#DC143C") })
+Tab:Code({ Title = "Script", Code = 'print("hello")' })
+Tab:Image({ Title = "Banner", Image = "rbxassetid://123456" })
+
+local group = Tab:Group({})
+group:Toggle({ Title = "Inside Group", Default = true })
+
+Tab:HStack({ Height = 42, Gap = 8 })
+Tab:VStack({ Width = 200, Gap = 6 })</code></pre>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>VILLAINS UI Library — MIT License</p>
+    </footer>
+    <script src="../assets/script.js"></script>
+</body>
+</html>

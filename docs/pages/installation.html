@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation — VILLAINS UI Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">☠</span>
+            <span class="brand-text">VILLAINS<span class="accent">UI</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="installation.html" class="active">Installation</a>
+            <a href="window.html">Window</a>
+            <a href="elements.html">Elements</a>
+            <a href="keysystem.html">Key System</a>
+            <a href="api.html">API</a>
+        </div>
+        <a href="https://github.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY" class="btn-github" target="_blank">GitHub</a>
+    </nav>
+
+    <div class="page-content">
+        <h1>Installation</h1>
+        <p class="subtitle">Load VILLAINS UI Library via loadstring from GitHub.</p>
+
+        <h2>Loadstring (Recommended)</h2>
+        <p>Upload the repository to GitHub, then use this code in your Roblox executor:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>local VillainsUI = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY/main/dist/VillainsUI.lua"
+))()</code></pre>
+        </div>
+
+        <h2>Run Example</h2>
+        <p>Try the full demo with all UI elements:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY/main/example.lua"
+))()</code></pre>
+        </div>
+
+        <h2>Quick Start</h2>
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>local VillainsUI = loadstring(game:HttpGet("YOUR_URL/dist/VillainsUI.lua"))()
+
+local Window = VillainsUI:CreateWindow({
+    Title = "My Hub",
+    Author = "Script Hub",
+    Icon = "☠",
+})
+
+local Tab = Window:Tab({ Title = "Main", Icon = "⚔" })
+
+Tab:Toggle({
+    Title = "Auto Farm",
+    Default = false,
+    Callback = function(value)
+        print("Toggle:", value)
+    end,
+})
+
+VillainsUI:Notify({
+    Title = "Loaded!",
+    Content = "VILLAINS UI is ready.",
+    Duration = 3,
+})</code></pre>
+        </div>
+
+        <h2>Deploy Documentation to Vercel</h2>
+        <ol>
+            <li>Push this repository to GitHub</li>
+            <li>Go to <a href="https://vercel.com" style="color: var(--primary-light)">vercel.com</a> and import the repo</li>
+            <li>Set the root directory to <code>docs</code></li>
+            <li>Deploy — your docs will be live!</li>
+        </ol>
+
+        <h2>Requirements</h2>
+        <ul>
+            <li>Roblox executor with <code>loadstring</code> and <code>game:HttpGet</code></li>
+            <li>Supports CoreGui / gethui parent</li>
+            <li>Works with Synapse, Fluxus, Delta, Solara, and others</li>
+        </ul>
+    </div>
+
+    <footer class="footer">
+        <p>VILLAINS UI Library — MIT License</p>
+    </footer>
+    <script src="../assets/script.js"></script>
+</body>
+</html>

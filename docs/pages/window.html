@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window — VILLAINS UI Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">☠</span>
+            <span class="brand-text">VILLAINS<span class="accent">UI</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="installation.html">Installation</a>
+            <a href="window.html" class="active">Window</a>
+            <a href="elements.html">Elements</a>
+            <a href="keysystem.html">Key System</a>
+            <a href="api.html">API</a>
+        </div>
+        <a href="https://github.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY" class="btn-github" target="_blank">GitHub</a>
+    </nav>
+
+    <div class="page-content">
+        <h1>Window</h1>
+        <p class="subtitle">Create and customize the main UI window.</p>
+
+        <h2>CreateWindow</h2>
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>local Window = VillainsUI:CreateWindow({
+    Title = "VILLAINS Hub",
+    Author = "Premium Script Hub",
+    Icon = "☠",
+    Folder = "VillainsHub",
+    Size = UDim2.fromOffset(600, 500),
+    SideBarWidth = 210,
+    OpenButton = {
+        Title = "Open UI",
+        Enabled = true,
+        CornerRadius = UDim.new(1, 0),
+        StrokeThickness = 2,
+        Color = ColorSequence.new(
+            Color3.fromHex("#8B0000"),
+            Color3.fromHex("#DC143C")
+        ),
+    },
+})</code></pre>
+        </div>
+
+        <h2>Parameters</h2>
+        <table class="param-table">
+            <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+            <tr><td><code>Title</code></td><td>string</td><td>Window title displayed in topbar</td></tr>
+            <tr><td><code>Author</code></td><td>string</td><td>Subtitle text below title</td></tr>
+            <tr><td><code>Icon</code></td><td>string</td><td>Emoji, rbxassetid://, or image URL</td></tr>
+            <tr><td><code>Folder</code></td><td>string</td><td>Config folder name (for future config save)</td></tr>
+            <tr><td><code>Size</code></td><td>UDim2</td><td>Window size (default: 580x480)</td></tr>
+            <tr><td><code>SideBarWidth</code></td><td>number</td><td>Sidebar width in pixels (default: 200)</td></tr>
+            <tr><td><code>OpenButton</code></td><td>table</td><td>Floating button to toggle window visibility</td></tr>
+        </table>
+
+        <h2>Tab</h2>
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>local Tab = Window:Tab({
+    Title = "Main",
+    Icon = "⚔",
+    IconColor = Color3.fromHex("#DC143C"),
+})</code></pre>
+        </div>
+
+        <h2>Tag</h2>
+        <p>Add version or status tags to the window header area.</p>
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Window:Tag({
+    Title = "v1.0.0",
+    Icon = "⚡",
+    Color = Color3.fromHex("#DC143C"),
+    Border = true,
+})</code></pre>
+        </div>
+
+        <h2>Window Methods</h2>
+        <table class="param-table">
+            <tr><th>Method</th><th>Description</th></tr>
+            <tr><td><code>Window:Tab(config)</code></td><td>Create a new sidebar tab</td></tr>
+            <tr><td><code>Window:Tag(config)</code></td><td>Add a tag badge to the header</td></tr>
+            <tr><td><code>Window:Toggle()</code></td><td>Show/hide the window</td></tr>
+            <tr><td><code>Window:SetVisible(bool)</code></td><td>Set window visibility</td></tr>
+            <tr><td><code>Window:Destroy()</code></td><td>Destroy window and open button</td></tr>
+        </table>
+
+        <h2>Notify</h2>
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>VillainsUI:Notify({
+    Title = "Success",
+    Content = "Action completed!",
+    Icon = "✓",
+    Type = "Success", -- Success | Warning | Error | Info
+    Duration = 4,
+})</code></pre>
+        </div>
+
+        <h2>Popup & Dialog</h2>
+        <div class="code-block">
+            <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">Lua</span>
+                <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>VillainsUI:Popup({
+    Title = "Confirm Action",
+    Icon = "⚠",
+    Content = "Are you sure you want to proceed?",
+    Buttons = {
+        { Title = "Cancel", Variant = "Secondary" },
+        { Title = "Confirm", Variant = "Primary", Callback = function()
+            print("Confirmed!")
+        end },
+    },
+})</code></pre>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>VILLAINS UI Library — MIT License</p>
+    </footer>
+    <script src="../assets/script.js"></script>
+</body>
+</html>

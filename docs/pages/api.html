@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference — VILLAINS UI Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">☠</span>
+            <span class="brand-text">VILLAINS<span class="accent">UI</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="installation.html">Installation</a>
+            <a href="window.html">Window</a>
+            <a href="elements.html">Elements</a>
+            <a href="keysystem.html">Key System</a>
+            <a href="api.html" class="active">API</a>
+        </div>
+        <a href="https://github.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY" class="btn-github" target="_blank">GitHub</a>
+    </nav>
+
+    <div class="page-content">
+        <h1>API Reference</h1>
+        <p class="subtitle">Complete API documentation for VILLAINS UI Library.</p>
+
+        <h2>VillainsUI Object</h2>
+        <table class="param-table">
+            <tr><th>Property / Method</th><th>Description</th></tr>
+            <tr><td><code>VillainsUI.Version</code></td><td>Library version string ("2.0.0")</td></tr>
+            <tr><td><code>VillainsUI.Theme</code></td><td>Current theme name ("DarkRed")</td></tr>
+            <tr><td><code>VillainsUI:CreateWindow(config)</code></td><td>Create main UI window (supports KeySystem)</td></tr>
+            <tr><td><code>VillainsUI:Notify(config)</code></td><td>Show notification toast</td></tr>
+            <tr><td><code>VillainsUI:Popup(config)</code></td><td>Show popup modal</td></tr>
+            <tr><td><code>VillainsUI:Dialog(config)</code></td><td>Show dialog with confirm/cancel</td></tr>
+            <tr><td><code>VillainsUI:SetTheme(name)</code></td><td>Set theme (DarkRed, BloodMoon, Crimson, Dark)</td></tr>
+            <tr><td><code>VillainsUI:AddTheme(name, colors)</code></td><td>Register custom theme</td></tr>
+            <tr><td><code>VillainsUI:GetThemes()</code></td><td>List available themes</td></tr>
+            <tr><td><code>VillainsUI:Localization(config)</code></td><td>Enable multi-language support</td></tr>
+            <tr><td><code>VillainsUI:SetLanguage(code)</code></td><td>Switch active language</td></tr>
+            <tr><td><code>VillainsUI:Translate(key)</code></td><td>Get translated string</td></tr>
+            <tr><td><code>VillainsUI.ConfigManager</code></td><td>Config save/load module</td></tr>
+            <tr><td><code>VillainsUI.Services</code></td><td>Key validation services (Luarmor, etc.)</td></tr>
+            <tr><td><code>VillainsUI:SetTransparency(value)</code></td><td>Set window transparency (0-1)</td></tr>
+            <tr><td><code>VillainsUI:Destroy()</code></td><td>Destroy entire UI</td></tr>
+        </table>
+
+        <h2>Theme Colors</h2>
+        <table class="param-table">
+            <tr><th>Color</th><th>Hex</th><th>Usage</th></tr>
+            <tr><td>Background</td><td><code>#070404</code></td><td>Main window background</td></tr>
+            <tr><td>Surface</td><td><code>#160909</code></td><td>Element backgrounds</td></tr>
+            <tr><td>Primary</td><td><code>#DC143C</code></td><td>Accent, buttons, borders</td></tr>
+            <tr><td>Primary Light</td><td><code>#FF2D55</code></td><td>Hover, glow effects</td></tr>
+            <tr><td>Primary Dark</td><td><code>#8B0000</code></td><td>Dark accents, tags</td></tr>
+            <tr><td>Text</td><td><code>#F5E6E6</code></td><td>Primary text</td></tr>
+            <tr><td>Text Secondary</td><td><code>#B89090</code></td><td>Descriptions, labels</td></tr>
+        </table>
+
+        <h2>Animation System</h2>
+        <p>Built-in animations using TweenService with Quint and Back easing:</p>
+        <ul>
+            <li>Window open — Scale + fade with spring bounce</li>
+            <li>Tab switch — Slide transition with color fade</li>
+            <li>Toggle — Spring knob animation</li>
+            <li>Button — Ripple effect on click</li>
+            <li>Notification — Slide in from right</li>
+            <li>Open button — Pulse glow loop</li>
+            <li>Hover — Smooth color/transparency transition</li>
+        </ul>
+
+        <h2>Notification Types</h2>
+        <table class="param-table">
+            <tr><th>Type</th><th>Color</th></tr>
+            <tr><td><code>Success</code></td><td>Green (#2ECC71)</td></tr>
+            <tr><td><code>Warning</code></td><td>Orange (#F39C12)</td></tr>
+            <tr><td><code>Error</code></td><td>Red (#E74C3C)</td></tr>
+            <tr><td><code>Info</code> / default</td><td>Crimson (#DC143C)</td></tr>
+        </table>
+
+        <h2>Popup Button Variants</h2>
+        <table class="param-table">
+            <tr><th>Variant</th><th>Style</th></tr>
+            <tr><td><code>Primary</code></td><td>Red gradient button</td></tr>
+            <tr><td><code>Secondary</code></td><td>Dark surface button</td></tr>
+            <tr><td><code>Tertiary</code></td><td>Dark surface button</td></tr>
+        </table>
+
+        <h2>Project Structure</h2>
+        <div class="code-block">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-title">Structure</span></div>
+            <pre><code>VILLAINS-UI-LIBRARY/
+├── dist/
+│   └── VillainsUI.lua      # Loadstring file
+├── src/
+│   ├── Init.lua             # Main entry
+│   ├── Core/                # Theme, Animation, Creator
+│   ├── Components/          # Window, Notification, Popup, KeySystem
+│   ├── Modules/             # Config, Localization
+│   ├── Services/            # Luarmor, Platoboost, PandaDevelopment
+│   └── Elements/            # Button, Toggle, Slider, etc.
+├── docs/                    # Vercel documentation
+├── example.lua              # Full demo script
+├── build.ps1                # Bundle script
+└── README.md</code></pre>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>VILLAINS UI Library — MIT License</p>
+    </footer>
+    <script src="../assets/script.js"></script>
+</body>
+</html>
