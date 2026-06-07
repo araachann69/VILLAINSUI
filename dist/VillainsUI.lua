@@ -1,5 +1,5 @@
 --[[
-    VILLAINS UI LIBRARY v3.0.0 - DARK RED PREMIUM (FULL)
+    VILLAINS UI LIBRARY v3.0.1 - DARK RED PREMIUM
     Premium Roblox UI Library for Script Hubs
 
     local VillainsUI = loadstring(game:HttpGet(
@@ -106,7 +106,7 @@ return (function()
     Modules["Theme"] = (function()
         local Theme = {}
         
-        Theme.Version = "3.0.0"
+        Theme.Version = "3.0.1"
         Theme.Name = "DarkRed"
         
         Theme.Colors = {
@@ -2578,9 +2578,7 @@ return (function()
         	end
         	return files
         end
-        
         return ConfigManager
-        return Config
     end)()
 
     Modules["Notification"] = (function()

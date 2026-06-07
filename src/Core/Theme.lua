@@ -4,7 +4,7 @@
 
 local Theme = {}
 
-Theme.Version = "3.0.0"
+Theme.Version = "3.0.1"
 Theme.Name = "DarkRed"
 
 Theme.Colors = {

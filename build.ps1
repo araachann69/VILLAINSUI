@@ -43,7 +43,9 @@ $replacements = [ordered]@{
 function Convert-Module($path, $exportName) {
     $content = Get-Content (Join-Path $root $path) -Raw -Encoding UTF8
     $content = $content -replace '(?s)^--\[\[.*?\]\]\r?\n', ''
-    $content = $content -replace "return $exportName\s*$", ''
+    $content = $content -replace '(?s)^--.*\r?\n', ''  # strip single-line header comments
+    # Strip ANY trailing return statement (fixes ConfigManager vs Config mismatch)
+    $content = $content -replace 'return\s+[\w\.]+\s*$', ''
     foreach ($key in $replacements.Keys) {
         $content = [regex]::Replace($content, $key, $replacements[$key])
     }
@@ -52,7 +54,7 @@ function Convert-Module($path, $exportName) {
 
 $header = @'
 --[[
-    VILLAINS UI LIBRARY v3.0.0 - DARK RED PREMIUM (FULL)
+    VILLAINS UI LIBRARY v3.0.1 - DARK RED PREMIUM
     Premium Roblox UI Library for Script Hubs
 
     local VillainsUI = loadstring(game:HttpGet(
@@ -95,7 +97,7 @@ $modules = @(
     @{ Path = "src\Components\Tooltip.lua"; Name = "Tooltip"; Export = "Tooltip" },
     @{ Path = "src\Elements\Init.lua"; Name = "Elements"; Export = "Elements" },
     @{ Path = "src\Modules\Localization.lua"; Name = "Localization"; Export = "Localization" },
-    @{ Path = "src\Modules\Config.lua"; Name = "Config"; Export = "Config" },
+    @{ Path = "src\Modules\Config.lua"; Name = "Config"; Export = "ConfigManager" },
     @{ Path = "src\Components\Notification.lua"; Name = "Notification"; Export = "Notification" },
     @{ Path = "src\Components\Popup.lua"; Name = "Popup"; Export = "Popup" },
     @{ Path = "src\Components\KeySystem.lua"; Name = "KeySystem"; Export = "KeySystem" },
@@ -117,4 +119,13 @@ end)()
 '@
 
 [System.IO.File]::WriteAllText($outFile, $header + $body + $footer, [System.Text.UTF8Encoding]::new($false))
-Write-Host "Built $outFile ($((Get-Item $outFile).Length) bytes)"
+
+# Validate: no duplicate return statements in module closures
+$built = Get-Content $outFile -Raw
+$dupes = [regex]::Matches($built, 'return\s+\w+\s*\r?\n\s+return\s+\w+')
+if ($dupes.Count -gt 0) {
+    Write-Error "Build validation failed: $($dupes.Count) duplicate return statement(s) found in bundle!"
+    exit 1
+}
+
+Write-Host "Built $outFile ($((Get-Item $outFile).Length) bytes) - validated OK"
