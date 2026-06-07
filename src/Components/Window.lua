@@ -774,8 +774,15 @@ function Window.Create(VillainsUI, config)
 	windowObj.OpenButton = openButton
 
 	if config.Acrylic then
-		windowObj.AcrylicPaint = Paint.Create(gui, true)
-		VillainsUI.AcrylicEnabled = true
+		local ok, paint = pcall(function()
+			return Paint.Create(gui, true)
+		end)
+		if ok and paint then
+			windowObj.AcrylicPaint = paint
+			VillainsUI.AcrylicEnabled = true
+		else
+			warn("[VillainsUI] Acrylic not supported on this executor.")
+		end
 	end
 
 	main.Size = UDim2.new(size.X.Scale, size.X.Offset * 0.9, size.Y.Scale, size.Y.Offset * 0.9)

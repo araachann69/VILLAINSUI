@@ -6,6 +6,7 @@ local Theme = require(script.Parent.Parent.Core.Theme)
 local Creator = require(script.Parent.Parent.Core.Creator)
 local Animation = require(script.Parent.Parent.Core.Animation)
 local Tooltip = require(script.Parent.Parent.Components.Tooltip)
+local Compat = require(script.Parent.Parent.Core.Compat)
 
 local Elements = {}
 
@@ -622,7 +623,7 @@ function Elements.CreateColorpicker(parent, config, theme)
 	theme = theme or Theme
 	local color = config.Default or config.Color or theme.Colors.Primary
 	local transparency = config.Transparency or config.Alpha or 0
-	local h, s, v = Color3.toHSV(color)
+	local h, s, v = Compat.ToHSV(color)
 
 	local row = Creator.New("Frame", {
 		Parent = parent,
@@ -669,7 +670,7 @@ function Elements.CreateColorpicker(parent, config, theme)
 	end
 
 	function element:SetValue(c, t)
-		h, s, v = Color3.toHSV(c)
+		h, s, v = Compat.ToHSV(c)
 		applyColor(c, t or transparency, false)
 	end
 

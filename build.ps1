@@ -31,7 +31,8 @@ $replacements = [ordered]@{
     'require\(script\.Parent\.PandaDevelopment\)' = 'Import("PandaDevelopment")'
     'require\(script\.Parent\.Luarmor\)' = 'Import("Luarmor")'
     'require\(script\.Parent\.JunkieDevelopment\)' = 'Import("JunkieDevelopment")'
-    'require\(script\.Parent\.Parent\.Core\.Paint\)' = 'Import("Paint")'
+    'require\(script\.Parent\.Parent\.Core\.Compat\)' = 'Import("Compat")'
+    'require\(script\.Parent\.Core\.Compat\)' = 'Import("Compat")'
     'require\(script\.Parent\.Parent\.Core\.Icons\)' = 'Import("Icons")'
     'require\(script\.Parent\.Core\.Paint\)' = 'Import("Paint")'
     'require\(script\.Parent\.Core\.Icons\)' = 'Import("Icons")'
@@ -60,6 +61,17 @@ $header = @'
 ]]
 
 return (function()
+    if not Color3.fromHex then
+        function Color3.fromHex(hex)
+            hex = string.gsub(hex, "#", "")
+            return Color3.new(
+                tonumber(string.sub(hex, 1, 2), 16) / 255,
+                tonumber(string.sub(hex, 3, 4), 16) / 255,
+                tonumber(string.sub(hex, 5, 6), 16) / 255
+            )
+        end
+    end
+
     local Modules = {}
     local function Import(name)
         return Modules[name]
@@ -68,6 +80,7 @@ return (function()
 '@
 
 $modules = @(
+    @{ Path = "src\Core\Compat.lua"; Name = "Compat"; Export = "Compat" },
     @{ Path = "src\Core\Theme.lua"; Name = "Theme"; Export = "Theme" },
     @{ Path = "src\Core\Themes.lua"; Name = "Themes"; Export = "Themes" },
     @{ Path = "src\Core\Animation.lua"; Name = "Animation"; Export = "Animation" },

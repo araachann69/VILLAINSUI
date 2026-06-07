@@ -2,6 +2,9 @@
 	VILLAINS UI Library v3.0.0 - Premium Full Edition
 ]]
 
+local Compat = require(script.Parent.Core.Compat)
+Compat.Apply()
+
 local Theme = require(script.Parent.Core.Theme)
 local Themes = require(script.Parent.Core.Themes)
 local Creator = require(script.Parent.Core.Creator)

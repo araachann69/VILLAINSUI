@@ -1,10 +1,56 @@
 --[[
     VILLAINS UI Library v3.0.0 - Premium Full Example
+    Compatible with Delta Mobile & other executors
 ]]
 
-local VillainsUI = loadstring(game:HttpGet(
-	"https://raw.githubusercontent.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY/main/dist/VillainsUI.lua"
-))()
+local LIBRARY_URL = "https://raw.githubusercontent.com/araachann69/VILLAINSUI/refs/heads/master/dist/VillainsUI.lua"
+
+local function loadVillainsUI()
+	local loader = loadstring or load
+	if not loader then
+		error("[VILLAINS UI] Executor tidak support loadstring/load. Gunakan executor lain.")
+	end
+
+	local source
+	local ok, result = pcall(function()
+		return game:HttpGet(LIBRARY_URL, true)
+	end)
+
+	if ok and type(result) == "string" and result ~= "" and not string.find(result, "<!DOCTYPE", 1, true) then
+		source = result
+	elseif syn and syn.request then
+		local res = syn.request({ Url = LIBRARY_URL, Method = "GET" })
+		source = res and res.Body
+	elseif http and http.request then
+		local res = http.request({ Url = LIBRARY_URL, Method = "GET" })
+		source = res and res.Body
+	elseif request then
+		local res = request({ Url = LIBRARY_URL, Method = "GET" })
+		source = res and res.Body
+	end
+
+	if not source or source == "" then
+		error("[VILLAINS UI] Gagal download library. Cek koneksi internet & URL GitHub.")
+	end
+
+	local fn, compileErr = loader(source, "VillainsUI")
+	if not fn then
+		error("[VILLAINS UI] Gagal compile: " .. tostring(compileErr))
+	end
+
+	local libOk, VillainsUI = pcall(fn)
+	if not libOk then
+		error("[VILLAINS UI] Gagal run library: " .. tostring(VillainsUI))
+	end
+
+	if type(VillainsUI) ~= "table" then
+		error("[VILLAINS UI] Library return nil. Pastikan dist/VillainsUI.lua sudah di-upload ke GitHub.")
+	end
+
+	return VillainsUI
+end
+
+local VillainsUI = loadVillainsUI()
 
 VillainsUI:Popup({
 	Title = "VILLAINS UI v" .. VillainsUI.Version,
@@ -22,11 +68,6 @@ local Window = VillainsUI:CreateWindow({
 	SideBarWidth = 220,
 	Acrylic = true,
 	Transparent = true,
-	-- Background = "video:rbxassetid://YOUR_VIDEO_ID",
-	-- Background = VillainsUI:Gradient({
-	--     ["0"] = { Color = "#070404", Transparency = 0 },
-	--     ["100"] = { Color = "#2A1010", Transparency = 0.2 },
-	-- }, { Rotation = 135 }),
 	User = {
 		Enabled = true,
 		Callback = function()
@@ -36,11 +77,16 @@ local Window = VillainsUI:CreateWindow({
 	OpenButton = {
 		Title = "Open VILLAINS",
 		Enabled = true,
-		Color = ColorSequence.new(Color3.fromHex("#8B0000"), Color3.fromHex("#DC143C")),
+		Color = ColorSequence.new(Color3.fromRGB(139, 0, 0), Color3.fromRGB(220, 20, 60)),
 	},
 })
 
-Window:Tag({ Title = "Premium v" .. VillainsUI.Version, Icon = "lucide:star", Color = Color3.fromHex("#DC143C"), Border = true })
+Window:Tag({
+	Title = "Premium v" .. VillainsUI.Version,
+	Icon = "lucide:star",
+	Color = Color3.fromRGB(220, 20, 60),
+	Border = true,
+})
 
 Window:TabSection({ Title = "MAIN" })
 
@@ -70,7 +116,9 @@ MainTab:Checkbox({
 MainTab:Slider({
 	Title = "Walk Speed",
 	Flag = "WalkSpeed",
-	Min = 16, Max = 200, Default = 16,
+	Min = 16,
+	Max = 200,
+	Default = 16,
 	IsTooltip = true,
 	Desc = "Adjust your walk speed",
 	Callback = function(v) print("Speed:", v) end,
@@ -79,7 +127,7 @@ MainTab:Slider({
 MainTab:Colorpicker({
 	Title = "Trail Color",
 	Flag = "TrailColor",
-	Default = Color3.fromHex("#DC143C"),
+	Default = Color3.fromRGB(220, 20, 60),
 	Transparency = true,
 	Callback = function(c, t) print("Color:", c, "Alpha:", t) end,
 })

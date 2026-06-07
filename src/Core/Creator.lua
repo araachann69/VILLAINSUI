@@ -50,9 +50,7 @@ end
 function Creator.New(className, props)
 	local instance = Instance.new(className)
 	for key, value in pairs(props or {}) do
-		if key == "Parent" then
-			continue
-		end
+		if key ~= "Parent" then
 		if key == "CornerRadius" and instance:IsA("GuiObject") then
 			local corner = Instance.new("UICorner")
 			corner.CornerRadius = value
@@ -89,6 +87,7 @@ function Creator.New(className, props)
 			aspect.Parent = instance
 		else
 			instance[key] = value
+		end
 		end
 	end
 	if props and props.Parent then

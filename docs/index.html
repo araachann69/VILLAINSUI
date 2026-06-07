@@ -28,7 +28,7 @@
             <a href="pages/keysystem.html">Key System</a>
             <a href="pages/api.html">API</a>
         </div>
-        <a href="https://github.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY" class="btn-github" target="_blank">GitHub</a>
+        <a href="https://github.com/araachann69/VILLAINSUI" class="btn-github" target="_blank">GitHub</a>
     </nav>
 
     <main class="hero">
@@ -43,7 +43,7 @@
                 <a href="pages/installation.html" class="btn-primary">Get Started</a>
                 <a href="pages/elements.html" class="btn-secondary">View Elements</a>
             </div>
-            <div class="code-block">
+            <div class="code-block hero-code">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
@@ -52,33 +52,80 @@
                     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 </div>
                 <pre><code id="load-code">local VillainsUI = loadstring(game:HttpGet(
-    "https://raw.githubusercontent.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY/main/dist/VillainsUI.lua"
+    "https://raw.githubusercontent.com/araachann69/VILLAINSUI/refs/heads/master/dist/VillainsUI.lua"
 ))()</code></pre>
             </div>
         </div>
 
         <div class="hero-preview">
-            <div class="preview-window">
-                <div class="preview-topbar">
-                    <div class="preview-dots">
-                        <span></span><span></span><span></span>
+            <div class="preview-scene">
+                <button class="preview-open-btn" type="button" aria-hidden="true">V</button>
+
+                <div class="preview-window">
+                    <div class="preview-glow-line"></div>
+
+                    <div class="preview-topbar">
+                        <div class="preview-topbar-left">
+                            <span class="preview-window-icon">☠</span>
+                            <div class="preview-window-titles">
+                                <span class="preview-title">VILLAINS Hub</span>
+                                <span class="preview-author">Premium Dark Red Theme</span>
+                            </div>
+                        </div>
+                        <div class="preview-topbar-right">
+                            <span class="preview-user-btn">👤</span>
+                            <span class="preview-ctrl">—</span>
+                            <span class="preview-ctrl close">×</span>
+                        </div>
                     </div>
-                    <span class="preview-title">☠ VILLAINS Hub</span>
-                </div>
-                <div class="preview-body">
-                    <div class="preview-sidebar">
-                        <div class="preview-tab active">⚔ Main</div>
-                        <div class="preview-tab">⚙ Settings</div>
-                        <div class="preview-tab">🗡 Combat</div>
-                    </div>
-                    <div class="preview-content">
-                        <div class="preview-tag">v3.0.0 Premium</div>
-                        <div class="preview-element">Toggle — Enable Feature</div>
-                        <div class="preview-element">Slider — Walk Speed</div>
-                        <div class="preview-element highlight">Button — Execute</div>
+
+                    <div class="preview-body">
+                        <aside class="preview-sidebar">
+                            <div class="preview-search">Search tabs...</div>
+                            <div class="preview-tab-section">MAIN</div>
+                            <div class="preview-tab active"><span>⚔</span> Combat</div>
+                            <div class="preview-tab"><span>❤</span> Visual</div>
+                            <div class="preview-tab-section">CONFIG</div>
+                            <div class="preview-tab"><span>⚙</span> Settings</div>
+                        </aside>
+
+                        <div class="preview-content">
+                            <div class="preview-tagbar">
+                                <span class="preview-tag">⚡ v3.0.0 Premium</span>
+                            </div>
+
+                            <div class="preview-elements">
+                                <div class="ui-row">
+                                    <div class="ui-row-text">
+                                        <span class="ui-label">Auto Farm</span>
+                                        <span class="ui-desc">Automatically farm resources</span>
+                                    </div>
+                                    <div class="ui-toggle on"><span class="ui-toggle-knob"></span></div>
+                                </div>
+
+                                <div class="ui-row ui-row-tall">
+                                    <div class="ui-row-header">
+                                        <span class="ui-label">Walk Speed</span>
+                                        <span class="ui-value">16</span>
+                                    </div>
+                                    <div class="ui-slider">
+                                        <div class="ui-slider-fill" style="width: 12%"></div>
+                                        <div class="ui-slider-thumb" style="left: 12%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="ui-row ui-row-color">
+                                    <span class="ui-label">Trail Color</span>
+                                    <span class="ui-color-swatch"></span>
+                                </div>
+
+                                <button class="ui-button" type="button">Execute Script</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <p class="preview-caption">Live preview — matches in-game VILLAINS UI window layout</p>
         </div>
     </main>
 
