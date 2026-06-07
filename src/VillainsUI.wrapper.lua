@@ -1,13 +1,4 @@
 --[[
-    VILLAINS UI LIBRARY v3.1.0 â€” Premium Dark Red
-    Core: WindUI (Footagesus/WindUI)
-
-    local loadfn = loadstring or load
-    local VillainsUI = loadfn(game:HttpGet(
-        "https://raw.githubusercontent.com/araachann69/VILLAINSUI/refs/heads/master/dist/VillainsUI.lua"
-    ))()
-]]
---[[
     VILLAINS UI v3.1.0 — Premium Dark Red
     Core: WindUI (Footagesus/WindUI) — MIT License
     Rebranded API + premium dark-red defaults

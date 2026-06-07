@@ -1,16 +1,27 @@
 --[[
-    VILLAINS UI v3.0.1 - Example (WindUI-style loader)
-    https://github.com/araachann69/VILLAINSUI
+    VILLAINS UI v3.1.0 — Example
+    WindUI core + Premium Dark Red theme
 ]]
 
-local VillainsUI = loadstring(game:HttpGet(
-	"https://raw.githubusercontent.com/araachann69/VILLAINSUI/refs/heads/master/dist/VillainsUI.lua"
-))()
+local URL = "https://raw.githubusercontent.com/araachann69/VILLAINSUI/refs/heads/master/dist/VillainsUI.lua"
+
+local loadfn = loadstring or load
+if not loadfn then
+	error("[VILLAINS UI] Executor tidak support loadstring/load")
+end
+
+local src = game:HttpGet(URL, true)
+local chunk, err = loadfn(src, "VillainsUI")
+if not chunk then
+	error("[VILLAINS UI] Compile error: " .. tostring(err))
+end
+
+local VillainsUI = chunk()
 
 VillainsUI:Popup({
 	Title = "VILLAINS UI v" .. VillainsUI.Version,
-	Icon = "☠",
-	Content = "Premium Dark Red Theme — Powered by WindUI-compatible API",
+	Icon = "bird",
+	Content = "Premium Dark Red — powered by WindUI core",
 	Buttons = { { Title = "Continue", Variant = "Primary" } },
 })
 
@@ -18,27 +29,28 @@ local Window = VillainsUI:CreateWindow({
 	Title = "VILLAINS Hub",
 	Author = "Premium Dark Red",
 	Folder = "VillainsUI_Demo",
-	Icon = "☠",
+	Icon = "solar:sword-bold",
 	Size = UDim2.fromOffset(620, 500),
 	SideBarWidth = 200,
+	Acrylic = true,
 	Transparent = true,
 	User = {
 		Enabled = true,
 		Callback = function()
-			VillainsUI:Notify({ Title = "Profile", Content = "Clicked!", Type = "Info" })
+			VillainsUI:Notify({ Title = "Profile", Content = "Clicked!", Type = "Success" })
 		end,
 	},
 })
 
-Window:Tag({ Title = "v" .. VillainsUI.Version, Icon = "⚡", Color = Color3.fromRGB(220, 20, 60), Border = true })
+Window:Tag({ Title = "v" .. VillainsUI.Version, Icon = "solar:star-bold", Color = Color3.fromRGB(220, 20, 60) })
 
 Window:TabSection({ Title = "MAIN" })
 
-local Tab = Window:Tab({ Title = "Home", Icon = "⚔" })
+local Tab = Window:Tab({ Title = "Home", Icon = "solar:home-2-bold" })
 
 Tab:Paragraph({
 	Title = "Welcome",
-	Content = "VILLAINS UI — WindUI-compatible API with premium dark red theme.",
+	Content = "VILLAINS UI — WindUI API dengan tema dark red premium.",
 })
 
 Tab:Toggle({
@@ -58,24 +70,10 @@ Tab:Slider({
 })
 
 Tab:Button({
-	Title = "Notify Test",
+	Title = "Test Notify",
 	Callback = function()
-		VillainsUI:Notify({ Title = "Success", Content = "It works!", Type = "Success" })
+		VillainsUI:Notify({ Title = "Success", Content = "VILLAINS UI works!", Type = "Success" })
 	end,
-})
-
-Window:TabSection({ Title = "CONFIG" })
-
-local Settings = Window:Tab({ Title = "Settings", Icon = "⚙" })
-
-Settings:Button({
-	Title = "Save Config",
-	Callback = function() Window:SaveConfig("default") end,
-})
-
-Settings:Button({
-	Title = "Load Config",
-	Callback = function() Window:LoadConfig("default") end,
 })
 
 print("[VILLAINS UI] Loaded v" .. VillainsUI.Version)
