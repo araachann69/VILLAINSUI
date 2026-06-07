@@ -8,10 +8,101 @@
 ]]
 
 return (function()
+    if not Color3.fromHex then
+        function Color3.fromHex(hex)
+            hex = string.gsub(hex, "#", "")
+            return Color3.new(
+                tonumber(string.sub(hex, 1, 2), 16) / 255,
+                tonumber(string.sub(hex, 3, 4), 16) / 255,
+                tonumber(string.sub(hex, 5, 6), 16) / 255
+            )
+        end
+    end
+
     local Modules = {}
     local function Import(name)
         return Modules[name]
     end
+    Modules["Compat"] = (function()
+        local Compat = {}
+        
+        function Compat.Apply()
+        	if not Color3.fromHex then
+        		function Color3.fromHex(hex)
+        			hex = string.gsub(hex, "#", "")
+        			return Color3.new(
+        				tonumber(string.sub(hex, 1, 2), 16) / 255,
+        				tonumber(string.sub(hex, 3, 4), 16) / 255,
+        				tonumber(string.sub(hex, 5, 6), 16) / 255
+        			)
+        		end
+        	end
+        end
+        
+        function Compat.ToHSV(color)
+        	if Color3.toHSV then
+        		return Color3.toHSV(color)
+        	end
+        	return color:ToHSV()
+        end
+        
+        function Compat.HttpGet(url)
+        	local ok, body = pcall(function()
+        		return game:HttpGet(url, true)
+        	end)
+        	if ok and type(body) == "string" and body ~= "" and not string.find(body, "<!DOCTYPE", 1, true) then
+        		return body
+        	end
+        
+        	if syn and syn.request then
+        		local res = syn.request({ Url = url, Method = "GET" })
+        		if res and res.Body then
+        			return res.Body
+        		end
+        	end
+        
+        	if http and http.request then
+        		local res = http.request({ Url = url, Method = "GET" })
+        		if res and res.Body then
+        			return res.Body
+        		end
+        	end
+        
+        	if request then
+        		local res = request({ Url = url, Method = "GET" })
+        		if res and res.Body then
+        			return res.Body
+        		end
+        	end
+        
+        	error("[VillainsUI] HttpGet failed for: " .. tostring(url))
+        end
+        
+        function Compat.LoadString(source, chunkName)
+        	local loader = loadstring or load
+        	if not loader then
+        		error("[VillainsUI] This executor does not support loadstring/load.")
+        	end
+        	local fn, err = loader(source, chunkName or "VillainsUI")
+        	if not fn then
+        		error("[VillainsUI] Failed to compile: " .. tostring(err))
+        	end
+        	return fn
+        end
+        
+        function Compat.SafeCall(fn, ...)
+        	local ok, result = pcall(fn, ...)
+        	if not ok then
+        		warn("[VillainsUI] " .. tostring(result))
+        		return nil
+        	end
+        	return result
+        end
+        
+        Compat.Apply()
+        return Compat
+    end)()
+
     Modules["Theme"] = (function()
         local Theme = {}
         
@@ -545,9 +636,7 @@ return (function()
         function Creator.New(className, props)
         	local instance = Instance.new(className)
         	for key, value in pairs(props or {}) do
-        		if key == "Parent" then
-        			continue
-        		end
+        		if key ~= "Parent" then
         		if key == "CornerRadius" and instance:IsA("GuiObject") then
         			local corner = Instance.new("UICorner")
         			corner.CornerRadius = value
@@ -584,6 +673,7 @@ return (function()
         			aspect.Parent = instance
         		else
         			instance[key] = value
+        		end
         		end
         	end
         	if props and props.Parent then
@@ -1225,6 +1315,7 @@ return (function()
         local Creator = Import("Creator")
         local Animation = Import("Animation")
         local Tooltip = Import("Tooltip")
+        local Compat = Import("Compat")
         
         local Elements = {}
         
@@ -1841,7 +1932,7 @@ return (function()
         	theme = theme or Theme
         	local color = config.Default or config.Color or theme.Colors.Primary
         	local transparency = config.Transparency or config.Alpha or 0
-        	local h, s, v = Color3.toHSV(color)
+        	local h, s, v = Compat.ToHSV(color)
         
         	local row = Creator.New("Frame", {
         		Parent = parent,
@@ -1888,7 +1979,7 @@ return (function()
         	end
         
         	function element:SetValue(c, t)
-        		h, s, v = Color3.toHSV(c)
+        		h, s, v = Compat.ToHSV(c)
         		applyColor(c, t or transparency, false)
         	end
         
@@ -3103,7 +3194,7 @@ return (function()
         local Creator = Import("Creator")
         local Animation = Import("Animation")
         local Elements = Import("Elements")
-        local Paint = Import("Paint")
+        local Paint = require(script.Parent.Parent.Core.Paint)
         
         local Window = {}
         Window.Instances = {}
@@ -3871,8 +3962,15 @@ return (function()
         	windowObj.OpenButton = openButton
         
         	if config.Acrylic then
-        		windowObj.AcrylicPaint = Paint.Create(gui, true)
-        		VillainsUI.AcrylicEnabled = true
+        		local ok, paint = pcall(function()
+        			return Paint.Create(gui, true)
+        		end)
+        		if ok and paint then
+        			windowObj.AcrylicPaint = paint
+        			VillainsUI.AcrylicEnabled = true
+        		else
+        			warn("[VillainsUI] Acrylic not supported on this executor.")
+        		end
         	end
         
         	main.Size = UDim2.new(size.X.Scale, size.X.Offset * 0.9, size.Y.Scale, size.Y.Offset * 0.9)
@@ -3886,6 +3984,9 @@ return (function()
     end)()
 
     Modules["VillainsUI"] = (function()
+        local Compat = Import("Compat")
+        Compat.Apply()
+        
         local Theme = Import("Theme")
         local Themes = Import("Themes")
         local Creator = Import("Creator")
