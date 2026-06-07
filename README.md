@@ -1,4 +1,4 @@
-# VILLAINS UI Library v3.0.0 — Premium Dark Red (100% WindUI Parity)
+# VILLAINS UI Library v3.0.0 — Premium Dark Red
 
 Premium open-source UI library for Roblox Script Hubs with **full WindUI feature parity** + enhanced premium dark red theme & animations.
 
@@ -38,7 +38,7 @@ Premium open-source UI library for Roblox Script Hubs with **full WindUI feature
 
 ```lua
 local VillainsUI = loadstring(game:HttpGet(
-    "https://raw.githubusercontent.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY/main/dist/VillainsUI.lua"
+    "https://raw.githubusercontent.com/araachann69/VILLAINSUI/refs/heads/master/dist/VillainsUI.lua"
 ))()
 
 local Window = VillainsUI:CreateWindow({
@@ -68,7 +68,7 @@ VillainsUI:Notify({
 
 ```lua
 loadstring(game:HttpGet(
-    "https://raw.githubusercontent.com/YOUR_USERNAME/VILLAINS-UI-LIBRARY/main/example.lua"
+    "https://raw.githubusercontent.com/araachann69/VILLAINSUI/refs/heads/master/dist/VillainsUI.lua"
 ))()
 ```
 
