@@ -1,6 +1,6 @@
 --[[ VILLAINS UI - Key Validation Services ]]
 
-return {
+local Services = {
 	platoboost = {
 		Name = "Platoboost",
 		Icon = "🔑",
@@ -32,3 +32,5 @@ return {
 		New = require(script.Parent.JunkieDevelopment).New,
 	},
 }
+
+return Services

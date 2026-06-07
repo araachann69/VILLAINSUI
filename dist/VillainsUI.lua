@@ -637,43 +637,43 @@ return (function()
         	local instance = Instance.new(className)
         	for key, value in pairs(props or {}) do
         		if key ~= "Parent" then
-        		if key == "CornerRadius" and instance:IsA("GuiObject") then
-        			local corner = Instance.new("UICorner")
-        			corner.CornerRadius = value
-        			corner.Parent = instance
-        		elseif key == "Stroke" then
-        			local stroke = Instance.new("UIStroke")
-        			for sk, sv in pairs(value) do
-        				stroke[sk] = sv
+        			if key == "CornerRadius" and instance:IsA("GuiObject") then
+        				local corner = Instance.new("UICorner")
+        				corner.CornerRadius = value
+        				corner.Parent = instance
+        			elseif key == "Stroke" then
+        				local stroke = Instance.new("UIStroke")
+        				for sk, sv in pairs(value) do
+        					stroke[sk] = sv
+        				end
+        				stroke.Parent = instance
+        			elseif key == "Padding" then
+        				local padding = Instance.new("UIPadding")
+        				for pk, pv in pairs(value) do
+        					padding[pk] = pv
+        				end
+        				padding.Parent = instance
+        			elseif key == "Gradient" then
+        				local gradient = Instance.new("UIGradient")
+        				for gk, gv in pairs(value) do
+        					gradient[gk] = gv
+        				end
+        				gradient.Parent = instance
+        			elseif key == "ListLayout" then
+        				local layout = Instance.new("UIListLayout")
+        				for lk, lv in pairs(value) do
+        					layout[lk] = lv
+        				end
+        				layout.Parent = instance
+        			elseif key == "AspectRatio" then
+        				local aspect = Instance.new("UIAspectRatioConstraint")
+        				for ak, av in pairs(value) do
+        					aspect[ak] = av
+        				end
+        				aspect.Parent = instance
+        			else
+        				instance[key] = value
         			end
-        			stroke.Parent = instance
-        		elseif key == "Padding" then
-        			local padding = Instance.new("UIPadding")
-        			for pk, pv in pairs(value) do
-        				padding[pk] = pv
-        			end
-        			padding.Parent = instance
-        		elseif key == "Gradient" then
-        			local gradient = Instance.new("UIGradient")
-        			for gk, gv in pairs(value) do
-        				gradient[gk] = gv
-        			end
-        			gradient.Parent = instance
-        		elseif key == "ListLayout" then
-        			local layout = Instance.new("UIListLayout")
-        			for lk, lv in pairs(value) do
-        				layout[lk] = lv
-        			end
-        			layout.Parent = instance
-        		elseif key == "AspectRatio" then
-        			local aspect = Instance.new("UIAspectRatioConstraint")
-        			for ak, av in pairs(value) do
-        				aspect[ak] = av
-        			end
-        			aspect.Parent = instance
-        		else
-        			instance[key] = value
-        		end
         		end
         	end
         	if props and props.Parent then
@@ -1201,7 +1201,7 @@ return (function()
     end)()
 
     Modules["Services"] = (function()
-        return {
+        local Services = {
         	platoboost = {
         		Name = "Platoboost",
         		Icon = "🔑",
